@@ -35,7 +35,7 @@ class LicenseLookup implements LicenseLookupContract
 
     public function lookUp(string $licenseName): License
     {
-        return $this->cache->get($licenseName, function () use ($licenseName) {
+        return $this->cache->get(str_replace(['{','}','(',')','/','\\','@',':'], '_', $licenseName), function () use ($licenseName) {
             try {
                 $detailsPageUrl = $this->queryForDetailPageUrl($licenseName);
 
